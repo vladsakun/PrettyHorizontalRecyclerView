@@ -7,8 +7,7 @@ import androidx.annotation.DimenRes
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 
-// Spacing between elements in grid layout Manager
-
+// Расстояние между елементами в списке (первый элемент не имеет отступа слева, а последний - справа)
 class ItemOffsetDecoration(private val mItemOffset: Int) : ItemDecoration() {
 
     constructor(context: Context, @DimenRes itemOffsetId: Int) : this(

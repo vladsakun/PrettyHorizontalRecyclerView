@@ -6,13 +6,18 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import kotlin.math.ceil
 
 class VehiclesAdapter(
+
+    // Список транспорта
     private val vehicleList: List<VehicleItem>,
+
+    // Callback, который вызывается на нажатие элемента
     private val onVehicleItemClickCallback: VehicleItemClickCallback
+
 ) : RecyclerView.Adapter<VehiclesAdapter.VehiclesViewHolder>() {
 
+    // Позиция элемента, который имеет фокус (по умолчанию == 0 (первый элемент))
     private var focusedItem: Int = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VehiclesViewHolder {
@@ -26,44 +31,71 @@ class VehiclesAdapter(
 
     override fun onBindViewHolder(holder: VehiclesViewHolder, position: Int) {
 
+        // Позиция текущего элемента == элемента, который имеет фокус
         if (position == focusedItem) {
+
+            // Установить прозрачнось на 1
             holder.setActiveAlpha()
         } else {
+
+            // Установить прозрачность на 0.5
             holder.setInActiveAlpha()
         }
 
+        // Текущий єлемент
         val vehicleItem = vehicleList[position]
+
+        // Инициализируем изображение транспорта
         holder.vehicleIcon.setImageResource(vehicleItem.vehicleDrawableId)
+
+        // Инициализируем тип транспорта
         holder.vehicleType.text = vehicleItem.vehicleType
+
+        // Инициализируем цену транспорта
         holder.vehiclePrice.text = vehicleItem.vehiclePrice.toString() + vehicleItem.currency
-
-        holder.itemView.setOnClickListener { view ->
-            val xPositionForActiveView = view.x + view.width / 2
-
-            val xPositionForScrollView =
-
-                // Если первый или последний элемент требуется скрол именно к этому элемент
-                if (position == 0 || position == itemCount - 1) {
-                    xPositionForActiveView
-                }
-
-                // Иначе, требуется делать скрол к предыдущему элементу
-                else {
-                    xPositionForActiveView - view.width
-                }
-
-            onVehicleItemClickCallback.onItemClick(xPositionForActiveView, xPositionForScrollView)
-
-            holder.setActiveAlpha()
-            notifyItemChanged(focusedItem)
-            focusedItem = position
-        }
     }
 
     inner class VehiclesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
         val vehicleIcon: ImageView = itemView.findViewById(R.id.vehicle_icon)
         val vehicleType: TextView = itemView.findViewById(R.id.vehicle_type)
         val vehiclePrice: TextView = itemView.findViewById(R.id.vehicle_price)
+
+        init {
+            // Устанавливаем слушатель нажатия для View
+            itemView.setOnClickListener { view ->
+
+                // Х координата центра нажатого элемента
+                val xPositionForActiveView = view.x + view.width / 2
+
+                // Х координата для скрола
+                val xPositionForScrollView =
+
+                    // Если первый или последний элемент требуется скрол именно к этому элемент
+                    if (layoutPosition == 0 || layoutPosition == itemCount - 1) {
+                        xPositionForActiveView
+                    }
+
+                    // Иначе, требуется делать скрол к предыдущему элементу
+                    else {
+                        xPositionForActiveView - view.width
+                    }
+
+                // Вызываем callback, чтобы в MainActivity изменить позицию бєкграунда фокуса и выполнить скрол
+                onVehicleItemClickCallback.onItemClick(
+                    xPositionForActiveView,
+                    xPositionForScrollView
+                )
+
+                // Устанавливаем значение прозрачности 1 для нажатого элемента так как он теперь имеет фокус
+                setActiveAlpha()
+
+                // Обновляем старый и новый элементы
+                notifyItemChanged(focusedItem)
+                focusedItem = layoutPosition
+                notifyItemChanged(focusedItem)
+            }
+        }
 
         // Установить значение прозрачность 1 для всех View (активный элемент)
         fun setActiveAlpha() {
@@ -79,5 +111,4 @@ class VehiclesAdapter(
             vehiclePrice.alpha = 0.5f
         }
     }
-
 }

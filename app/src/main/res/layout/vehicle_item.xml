@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="85dp"
     android:layout_height="wrap_content"
-    android:paddingStart="5dp"
-    android:paddingEnd="5dp">
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp">
 
     <ImageView
         android:id="@+id/vehicle_icon"
-        android:layout_width="60dp"
-        android:layout_height="35dp"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
         android:adjustViewBounds="true"
         android:alpha="0.5"
         android:scaleType="centerCrop"
