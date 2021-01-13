@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         val horizontalScrollView = findViewById<HorizontalScrollView>(R.id.horizontal_scrollview)
 
         // Конвертируем расстояние между элементами из dp в px
-        val dip = resources.getDimension(R.dimen.itemOffset)
+        val dip = resources.getDimension(R.dimen.spacingBetweenListItems)
         val px = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
             dip,
@@ -57,7 +57,12 @@ class MainActivity : AppCompatActivity() {
         vehiclesRecyclerView.adapter = vehiclesAdapter
 
         // Указываем расстояние между элементами списка
-        vehiclesRecyclerView.addItemDecoration(ItemOffsetDecoration(this, R.dimen.itemOffset))
+        vehiclesRecyclerView.addItemDecoration(ItemSpacingDecoration(this, R.dimen.spacingBetweenListItems))
+
+        // Отключаем NestedScrollView у списка
+        vehiclesRecyclerView.isNestedScrollingEnabled = false
+
+        vehiclesRecyclerView.setItemViewCacheSize(10)
 
     }
 

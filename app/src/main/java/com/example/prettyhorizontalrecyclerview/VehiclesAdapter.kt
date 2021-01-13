@@ -91,9 +91,9 @@ class VehiclesAdapter(
                 setActiveAlpha()
 
                 // Обновляем старый и новый элементы
-                notifyItemChanged(focusedItem)
+                notifyItemChanged(focusedItem, Object())
                 focusedItem = layoutPosition
-                notifyItemChanged(focusedItem)
+                notifyItemChanged(focusedItem, Object())
             }
         }
 

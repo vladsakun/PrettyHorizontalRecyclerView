@@ -8,18 +8,23 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 
 // Расстояние между елементами в списке (первый элемент не имеет отступа слева, а последний - справа)
-class ItemOffsetDecoration(private val mItemOffset: Int) : ItemDecoration() {
+class ItemSpacingDecoration(private val spacing: Int) : ItemDecoration() {
 
     constructor(context: Context, @DimenRes itemOffsetId: Int) : this(
         context.resources.getDimensionPixelSize(itemOffsetId)
     )
 
     override fun getItemOffsets(
-        outRect: Rect, view: View, parent: RecyclerView,
+        rect: Rect, view: View, parent: RecyclerView,
         state: RecyclerView.State
     ) {
-        super.getItemOffsets(outRect, view, parent, state)
-        outRect[mItemOffset, mItemOffset, mItemOffset] = mItemOffset
+        parent.adapter?.let { adapter ->
+            rect.right = when (parent.getChildAdapterPosition(view)) {
+                RecyclerView.NO_POSITION,
+                adapter.itemCount - 1 -> 0
+                else -> spacing
+            }
+        }
     }
 
 }

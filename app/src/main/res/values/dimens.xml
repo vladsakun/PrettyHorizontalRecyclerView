@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="itemOffset">5dp</dimen>
+    <dimen name="spacingBetweenListItems">10dp</dimen>
 </resources>

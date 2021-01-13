@@ -4,12 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@android:color/white"
     tools:context=".MainActivity">
 
     <HorizontalScrollView
         android:id="@+id/horizontal_scrollview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:overScrollMode="never"
         android:scrollbars="none"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -31,6 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:overScrollMode="never"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/vehicle_item" />
 
