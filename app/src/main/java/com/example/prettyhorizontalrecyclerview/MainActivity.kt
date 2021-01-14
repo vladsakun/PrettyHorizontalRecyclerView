@@ -19,6 +19,20 @@ class MainActivity : AppCompatActivity() {
         val focusedBackgroundView = findViewById<FrameLayout>(R.id.focused_item_background)
         val horizontalScrollView = findViewById<HorizontalScrollView>(R.id.horizontal_scrollview)
 
+        // Устанавливаем горизонтальный LinearLayoutManager списку
+        vehiclesRecyclerView.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        // Указываем расстояние между элементами списка
+        vehiclesRecyclerView.addItemDecoration(ItemSpacingDecoration(this, R.dimen.spacingBetweenListItems))
+
+        // Отключаем NestedScrollView у списка
+        vehiclesRecyclerView.isNestedScrollingEnabled = false
+
+        // Устанавливаем размер кэширования 10,
+        // чтобы при первом скролле уже были прогружены элементы всего списка
+        vehiclesRecyclerView.setItemViewCacheSize(10)
+
         // Конвертируем расстояние между элементами из dp в px
         val dip = resources.getDimension(R.dimen.spacingBetweenListItems)
         val px = TypedValue.applyDimension(
@@ -32,37 +46,24 @@ class MainActivity : AppCompatActivity() {
 
             override fun onItemClick(
                 xPositionForFocusedBackgroundView: Float, // Х координата для бэкграунда элемента в фокусе (центр элемента)
-                xPositionForHorizontalScrollView: Float // Х координта для скрола (центр предыдущего или нажатого элемента)
+                xPositionForHorizontalScrollView: Float // Х координата для скрола (центр предыдущего или нажатого элемента)
             ) {
 
-                // Перемещаем бэкграунд по оси х к центру нажатого элемента - центр бэграунда
+                // Перемещаем бэкграунд по оси х к центру нажатого элемента - центр бэкграунда
                 focusedBackgroundView.animate()
                     .translationX(xPositionForFocusedBackgroundView - focusedBackgroundView.width / 2)
 
-                // Скролим по оси х к центру предыдущего или нажатого элемента - центр бэграунда - расстояние между элементами
+                // Скролим по оси х к центру предыдущего или нажатого элемента - центр бэкграунда - расстояние между элементами
                 horizontalScrollView.smoothScrollTo(
                     (xPositionForHorizontalScrollView - focusedBackgroundView.width / 2 - px).toInt(),
                     0
                 )
 
             }
-
         })
-
-        // Устанавливаем горизонтальный LinearLayoutManager списку
-        vehiclesRecyclerView.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         // Указываем списку адаптер
         vehiclesRecyclerView.adapter = vehiclesAdapter
-
-        // Указываем расстояние между элементами списка
-        vehiclesRecyclerView.addItemDecoration(ItemSpacingDecoration(this, R.dimen.spacingBetweenListItems))
-
-        // Отключаем NestedScrollView у списка
-        vehiclesRecyclerView.isNestedScrollingEnabled = false
-
-        vehiclesRecyclerView.setItemViewCacheSize(10)
 
     }
 

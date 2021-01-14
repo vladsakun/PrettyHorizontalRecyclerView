@@ -29,7 +29,7 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/vehicle_icon"
-        tools:text="Комфорт" />
+        tools:text="Sedan" />
 
     <TextView
         android:id="@+id/vehicle_price"

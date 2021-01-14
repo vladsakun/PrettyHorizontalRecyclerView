@@ -34,7 +34,7 @@ class VehiclesAdapter(
         // Позиция текущего элемента == элемента, который имеет фокус
         if (position == focusedItem) {
 
-            // Установить прозрачнось на 1
+            // Установить прозрачность  на 1
             holder.setActiveAlpha()
         } else {
 
@@ -42,7 +42,7 @@ class VehiclesAdapter(
             holder.setInActiveAlpha()
         }
 
-        // Текущий єлемент
+        // Текущий элемент
         val vehicleItem = vehicleList[position]
 
         // Инициализируем изображение транспорта
@@ -71,17 +71,17 @@ class VehiclesAdapter(
                 // Х координата для скрола
                 val xPositionForScrollView =
 
-                    // Если первый или последний элемент требуется скрол именно к этому элемент
+                    // Если первый или последний элемент требуется скролл именно к этому элемент
                     if (layoutPosition == 0 || layoutPosition == itemCount - 1) {
                         xPositionForActiveView
                     }
 
-                    // Иначе, требуется делать скрол к предыдущему элементу
+                    // Иначе, требуется сделать  скрол к предыдущему элементу
                     else {
                         xPositionForActiveView - view.width
                     }
 
-                // Вызываем callback, чтобы в MainActivity изменить позицию бєкграунда фокуса и выполнить скрол
+                // Вызываем callback, чтобы в MainActivity изменить позицию бєкграунда фокуса и выполнить скролл
                 onVehicleItemClickCallback.onItemClick(
                     xPositionForActiveView,
                     xPositionForScrollView
@@ -91,7 +91,7 @@ class VehiclesAdapter(
                 setActiveAlpha()
 
                 // Обновляем старый и новый элементы
-                notifyItemChanged(focusedItem, Object())
+                notifyItemChanged(focusedItem, Object()) // Object(), чтобы обновление произошло без анимации
                 focusedItem = layoutPosition
                 notifyItemChanged(focusedItem, Object())
             }
