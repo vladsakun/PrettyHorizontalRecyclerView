@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     android:background="@android:color/white"
-    tools:context=".MainActivity">
+    android:padding="16dp">
 
     <HorizontalScrollView
         android:id="@+id/horizontal_scrollview"
@@ -23,7 +22,7 @@
 
             <FrameLayout
                 android:id="@+id/focused_item_background"
-                android:layout_width="90dp"
+                android:layout_width="93dp"
                 android:layout_height="0dp"
                 android:layout_alignTop="@+id/vehicle_recyclerview"
                 android:layout_alignBottom="@id/vehicle_recyclerview"
@@ -34,12 +33,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:overScrollMode="never"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/vehicle_item" />
 
         </RelativeLayout>
-
     </HorizontalScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
